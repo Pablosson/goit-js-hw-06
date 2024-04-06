@@ -12,5 +12,3 @@ function onInput(event) {
     outPut.textContent = "Anonymous";
   }
 }
-console.log(textInput);
-console.log(outPut);

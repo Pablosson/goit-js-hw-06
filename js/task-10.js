@@ -4,33 +4,40 @@ function getRandomHexColor() {
     .padStart(6, 0)}`;
 }
 
-const boxes = document.querySelector(`#boxes`);
-const input = document.querySelector(`input`);
-const createBtn = document.querySelector(`button[data-create]`);
-const destroyBtn = document.querySelector(`button[data-destroy]`);
-console.log(boxes);
-console.log(input);
-console.log(createBtn);
-console.log(destroyBtn);
+const numberBoxEl = document.querySelector('input[type="number"]');
+const bgCreateEl = document.querySelector("button[data-create]");
+const btnDestroyEl = document.querySelector("button[data-destroy]");
+const containerBoxesEl = document.querySelector("#boxes");
+const boxEl = document.querySelector(".div-item");
 
-createBtn.addEventListener(`click`, onClick);
+let originalSize = 30;
+const nullSize = 0;
 
-function onClick() {
-  console.log(input.value);
-  const boxesToAdd = [];
-  for (let i = 0; i < Number(input.value); i += 1) {
-    console.log(`Iteration number ${i}`);
-    const div = document.createElement("div");
-    div.style.height = `${30 + 10 * i}px`;
-    div.style.width = `${30 + 10 * i}px`;
-    div.style.background = getRandomHexColor();
-    boxesToAdd.push(div);
-  }
-  return boxes.append(...boxesToAdd);
+bgCreateEl.addEventListener("click", createBoxes);
+btnDestroyEl.addEventListener("click", destroyBoxes);
+
+function onFindAmount() {
+  let amount = numberBoxEl.value;
+  return amount;
 }
 
-destroyBtn.addEventListener(`click`, destroyBoxes);
+function createBoxes(amount) {
+  if (onFindAmount() >= 1) {
+    let amount = onFindAmount();
+
+    for (let i = 1; i <= amount; i += 1) {
+      const boxEl = document.createElement("div");
+
+      boxEl.style.width = `${originalSize}px`;
+      boxEl.style.height = `${originalSize}px`;
+      originalSize += 10;
+      const randomColor = getRandomHexColor();
+      boxEl.style.backgroundColor = randomColor;
+      containerBoxesEl.append(boxEl);
+    }
+  }
+}
 
 function destroyBoxes() {
-  boxes.innerHTML = ` `;
+  containerBoxesEl.innerHTML = "";
 }

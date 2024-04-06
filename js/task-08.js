@@ -13,6 +13,5 @@ function handleSubmit(event) {
   }
   const userDetails = { email: email.value, Password: password.value };
 
-  console.log(userDetails);
   event.currentTarget.reset();
 }
